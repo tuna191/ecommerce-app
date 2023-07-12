@@ -13,11 +13,8 @@ const SetupPage = () => {
       onOpen();
     }
   },[onOpen,isOpen])
-  return(
-    <div>
-      hello
-    </div>
-  )
+  // kich hoat mo hinh nen ko can return gi het 
+  return null;
 }
 
 export default SetupPage

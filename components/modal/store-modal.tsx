@@ -36,7 +36,9 @@ const StoreModal = () => {
         setLoading(true);
 
         const response = await axios.post('/api/stores',values);
-        toast.success("store created successfully")
+        // tại sao ko dùng Router vì router chỉ điều hướng đến trang và ko tải lại trang 
+        // còn window... thì sẽ tải lại trang 
+        window.location.assign(`/${response.data.id}`)
       } catch (error) {
         toast.error("something went wrong!!")
       }finally{
