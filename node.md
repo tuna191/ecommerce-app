@@ -23,3 +23,5 @@ date: 2023-7-10
 
 + window.location.assign() là một phương thức của đối tượng window.location trong JavaScript, được sử dụng để chuyển hướng trình duyệt đến một URL mới. Trong đoạn code bạn đưa ra, phương thức assign() được gọi với một đối số là một chuỗi nội suy, có giá trị là /${response.data.id}.
 
++ Cloudinary là một dịch vụ quản lý hình ảnh và video trên đám mây. Nó cung cấp các công cụ và tính năng mạnh mẽ để tải lên, lưu trữ, quản lý và tạo biểu đồ cho các tệp đa phương tiện trên ứng dụng web và di động.
+

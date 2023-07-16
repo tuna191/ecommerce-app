@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
+import { useOrigin } from "@/hooks/use-orgin";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Store } from "@prisma/client";
 import axios from "axios";
@@ -28,6 +29,7 @@ type SettingFormValues = z.infer<typeof formSchema>
 export const SettingForm = ({initialData}:SettingFormProps) =>{
     const params = useParams()
     const router = useRouter()
+    const origin = useOrigin()
 
     const [open,setOpen] = useState(false);
     const [loading, setLoading] = useState(false);
@@ -115,7 +117,7 @@ export const SettingForm = ({initialData}:SettingFormProps) =>{
             </form>
         </Form>
         <Separator/>
-        
+
         <ApiAlert 
         title="NEXT_PUBLIC_API_URL" 
         description={`${origin}/api/${params.storeId}`} 

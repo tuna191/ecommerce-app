@@ -17,7 +17,29 @@ model Store {
   id         String @id @default(uuid())
   name       String
   userId     String
+  billboard  Billboard[] @relation("StoreToBillboard")
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
 }
+// mỗi lần tạo ra một table mới thì phải chạy lệnh 
 
+// npx prisma generate // khởi tạo
+// npx prisma db push  // push lên planet db
+model Billboard{
+  id String @id @default(uuid())
+  storeId String
+  // giong khoa ngoai
+
+  //Trong ngữ cảnh này, Prisma đang áp dụng chế độ relationMode = "prisma" để quản lý quan hệ giữa các bảng trong cơ sở dữ liệu. 
+  //Khi chế độ này được sử dụng, Prisma không sử dụng các khóa ngoại mà thay vào đó sử dụng các chỉ mục để duy trì các quan hệ giữa các bảng. 
+  //Tuy nhiên, khi không sử dụng khóa ngoại, không có chỉ mục nào được tạo tự động cho các trường quan hệ, điều này có thể ảnh hưởng đến hiệu suất truy vấn.
+  store Store @relation( "StoreToBillboard",fields:[storeId],references: [id])
+  label String
+  imageUrl String
+  createdAt DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  // solution khoa ngoai
+  @@index([storeId])
+
+}
