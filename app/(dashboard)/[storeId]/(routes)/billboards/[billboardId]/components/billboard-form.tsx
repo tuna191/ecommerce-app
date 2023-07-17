@@ -81,7 +81,7 @@ export const BillboardFrom = ({initialData}:BillboardFromProps) =>{
 
             router.refresh();
             // giup quay lai root neu con store nao khac , con ko thi se bat bang tao store
-            router.push("/")
+            router.push(`/${params.storeId}/billboards`)
             toast.success("Billboard Delete ")
         } catch (error) {
             toast.error("Make sure you removed all categories using this billboard first!")
@@ -156,7 +156,6 @@ export const BillboardFrom = ({initialData}:BillboardFromProps) =>{
                 <Button disabled={loading} className="ml-auto" type = "submit">{action}</Button>
             </form>
         </Form>
-        <Separator/>
 
         </>
     )

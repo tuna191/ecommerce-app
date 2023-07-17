@@ -1,82 +1,45 @@
-
-
 import { NextResponse } from "next/server";
 import { auth } from "@clerk/nextjs";
 
 import prismadb from "@/lib/prismadb";
+import { log } from "console";
 
-export async function GET(
-  req:Request,
-  {params}:{params:{billboardId:string}}
-){
-  try {
-
-      if(!params.billboardId){
-          return new NextResponse("Billboard is required",{status:400});
-      }
-
-      const billboard = await prismadb.billboard.findUnique({
-          where:{
-              id: params.billboardId,
-          },
-          
-      })
-
-      return NextResponse.json(billboard)
-  } catch (error) {
-      console.log('[BILLBOARD_GET]',error);
-      return new NextResponse("Internal error",{status:500});
-  }
-}
 
 export async function PATCH(
   req: Request,
-  { params }: { params: { storeId:string , billboardId: string } }
+  { params }: { params: { storeId: string } }
 ) {
   try {
     const { userId } = auth();
     const body = await req.json();
 
-    const { label ,imageUrl } = body;
+    const { name } = body;
 
     if (!userId) {
       return new NextResponse("Unauthenticated", { status: 403 });
     }
 
-    if (!label) {
-      return new NextResponse("label is required", { status: 400 });
-    }
-    if (!imageUrl) {
-      return new NextResponse("imageUrl is required", { status: 400 });
+    if (!name) {
+      return new NextResponse("Name is required", { status: 400 });
     }
 
-    if (!params.billboardId) {
-      return new NextResponse("billboard id is required", { status: 400 });
+    if (!params.storeId) {
+      return new NextResponse("Store id is required", { status: 400 });
     }
 
-    const storeByUserId = await prismadb.store.findFirst({
-      where:{
-          id:params.storeId,
-          userId
-      }
-  })
-  // khi người dùng đăng nhập rồi nhưng ko có quyền để sửa , update..
-  if(!storeByUserId){
-      return new NextResponse("Unauthorized",{status:403})
-  }
-    const billboard = await prismadb.billboard.updateMany({
+    const store = await prismadb.store.updateMany({
       where: {
-        id: params.billboardId,
+        id: params.storeId,
+        userId,
       },
       data: {
-        label,
-        imageUrl
+        name
       }
     });
   
-    return NextResponse.json(billboard);
+    return NextResponse.json(store);
   } catch (error) {
-    console.log('[BILLBOARD_PATCH]', error);
+    console.log('[STORE_PATCH]', error);
     return new NextResponse("Internal error", { status: 500 });
   }
 };
@@ -84,7 +47,7 @@ export async function PATCH(
 // mặc dù tham số req ko đc dùng nhưng cx không được bỏ bởi vì tham số params chỉ hoạt động khi là tham số 2
 export async function DELETE(
     req:Request,
-    {params}:{params:{storeId:string,billboardId:string}}
+    {params}:{params:{storeId:string}}
 ){
     try {
         const {userId} = auth();
@@ -94,31 +57,21 @@ export async function DELETE(
         }
 
 
-        if(!params.billboardId){
-            return new NextResponse("Billboard is required",{status:400});
+        if(!params.storeId){
+            return new NextResponse("StoreId is required",{status:400});
         }
 
-        const storeByUserId = await prismadb.store.findFirst({
-          where:{
-              id:params.storeId,
-              userId
-          }
-      })
-      // khi người dùng đăng nhập rồi nhưng ko có quyền để sửa , update..
-      if(!storeByUserId){
-          return new NextResponse("Unauthorized",{status:403})
-      }
-
-        const billboard = await prismadb.billboard.deleteMany({
+        const store = await prismadb.store.deleteMany({
             where:{
-                id: params.billboardId,
+                id: params.storeId,
+                userId
             },
             
         })
 
-        return NextResponse.json(billboard)
+        return NextResponse.json(store)
     } catch (error) {
-        console.log('[BILLBOARD_DELETE]',error);
+        console.log('[STORE_DELETE]',error);
         return new NextResponse("Internal error",{status:500});
     }
 }
