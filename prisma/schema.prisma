@@ -18,6 +18,8 @@ model Store {
   name       String
   userId     String
   billboard  Billboard[] @relation("StoreToBillboard")
+  categories Category[] @relation("StoreToCategory")
+  size       Size[] @relation("StoreToSize")
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
 }
@@ -34,6 +36,7 @@ model Billboard{
   //Khi chế độ này được sử dụng, Prisma không sử dụng các khóa ngoại mà thay vào đó sử dụng các chỉ mục để duy trì các quan hệ giữa các bảng. 
   //Tuy nhiên, khi không sử dụng khóa ngoại, không có chỉ mục nào được tạo tự động cho các trường quan hệ, điều này có thể ảnh hưởng đến hiệu suất truy vấn.
   store Store @relation( "StoreToBillboard",fields:[storeId],references: [id])
+  categories Category[] @relation("BillboardToCategory")
   label String
   imageUrl String
   createdAt DateTime @default(now())
@@ -42,4 +45,31 @@ model Billboard{
   // solution khoa ngoai
   @@index([storeId])
 
+}
+
+model Category{
+  id String @id @default(uuid())
+  storeId String 
+  store Store @relation("StoreToCategory",fields: [storeId],references: [id])
+  billboardId String
+  billboard Billboard @relation("BillboardToCategory",fields: [billboardId],references: [id])
+  name String
+  createdAt DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@index([storeId])
+  @@index([billboardId])
+
+}
+
+model Size{
+  id String @id @default(uuid())
+  storeId String
+  store Store @relation("StoreToSize",fields: [storeId],references: [id])
+  name String
+  value String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([storeId])
 }
