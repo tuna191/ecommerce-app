@@ -19,6 +19,10 @@ export async function GET(
           where:{
               id: params.categoryId,
           },
+          // thêm billboard vì trong store , trong phần category sẽ cần đến billboard 
+          include:{
+            billboard: true
+          }
           
       })
 

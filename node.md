@@ -27,3 +27,20 @@ date: 2023-7-10
 
 + date-fns : chuyển đổi dạng date thành string 
 
+Zustand là một thư viện quản lý trạng thái (state management) cho ứng dụng React. Nó được thiết kế để giúp quản lý trạng thái của ứng dụng một cách đơn giản, hiệu quả và linh hoạt.
+
+Một số đặc điểm và lợi ích của Zustand là:
+
+Trạng thái kiểu Hook: Zustand sử dụng hook của React để quản lý trạng thái, giúp bạn viết mã dễ đọc và dễ hiểu hơn.
+
+Tự động kết hợp và cập nhật trạng thái: Khi trạng thái thay đổi, Zustand sẽ tự động kết hợp và cập nhật lại các thành phần sử dụng trạng thái đó mà không cần sử dụng Redux hoặc MobX.
+
+Trạng thái toàn cục: Trạng thái được lưu trữ ở một nơi duy nhất và có thể được chia sẻ và sử dụng trong nhiều thành phần khác nhau của ứng dụng.
+
+Tối ưu hiệu suất: Zustand được tối ưu hóa để tránh render không cần thiết và sử dụng memoization để tăng hiệu suất.
+
+Không cần Redux: Với Zustand, bạn không cần phải sử dụng Redux để quản lý trạng thái lớn và phức tạp. Thay vào đó, Zustand giúp bạn quản lý trạng thái một cách đơn giản và hiệu quả hơn.
+
+Dễ dàng tích hợp với React: Zustand được thiết kế để dễ dàng tích hợp và sử dụng cùng với React và các thư viện khác.
+
+Recharts là một gói thư viện React được sử dụng để tạo các biểu đồ dữ liệu động và tương tác. Nó cung cấp một tập hợp các thành phần dễ sử dụng để tạo các loại biểu đồ phổ biến như biểu đồ đường, biểu đồ cột, biểu đồ hình tròn, biểu đồ hình tròn, biểu đồ tia, và nhiều loại biểu đồ khác

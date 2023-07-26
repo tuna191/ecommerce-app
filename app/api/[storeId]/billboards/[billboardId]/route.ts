@@ -18,7 +18,8 @@ export async function GET(
       const billboard = await prismadb.billboard.findUnique({
           where:{
               id: params.billboardId,
-          },
+          }
+          
           
       })
 

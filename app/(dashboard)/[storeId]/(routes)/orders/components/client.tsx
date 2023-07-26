@@ -10,7 +10,7 @@ interface OrdersClientProps{
     data: OrderColumn[]
 }
 export const OrdersClient = ({data} :OrdersClientProps) =>{
-
+    
     return (
         <>
             <Heading
